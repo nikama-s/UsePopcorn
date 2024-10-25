@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import NavBar from "./NavBar";
 import Main from "./Main";
+import { useMovies } from "./usemovies";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -15,11 +16,11 @@ export const average = (arr) =>
 export const KEY = "64100630";
 
 export default function App() {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  const { movies, isLoading, error } = useMovies(query);
+
   const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
@@ -48,44 +49,6 @@ export default function App() {
     [watched]
   );
 
-  useEffect(
-    function () {
-      const controller = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          setError("");
-          const res = await fetch(
-            `https://www.omdbapi.com/?s=${
-              query ? query : "game"
-            }&apikey=${KEY}`,
-            { signal: controller.signal }
-          );
-
-          const data = await res.json();
-          if (data.Response === "False") throw new Error("Movie not found");
-          setMovies(data.Search);
-          setError("");
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            err.message === "Failed to fetch"
-              ? setError("Something went wrong")
-              : setError(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      handleCloseMovie();
-      fetchMovies();
-
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
-  );
   return (
     <>
       <NavBar setQuery={setQuery} query={query} movies={movies} />
