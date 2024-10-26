@@ -8,8 +8,6 @@ export function useMovies(query) {
 
   useEffect(
     function () {
-      //   callback?.();
-
       const controller = new AbortController();
 
       async function fetchMovies() {
@@ -18,7 +16,7 @@ export function useMovies(query) {
           setError("");
           const res = await fetch(
             `https://www.omdbapi.com/?s=${
-              query ? query : "game"
+              query ? query.trim() : "game"
             }&apikey=${KEY}`,
             { signal: controller.signal }
           );
@@ -37,7 +35,6 @@ export function useMovies(query) {
           setIsLoading(false);
         }
       }
-      //   handleCloseMovie();
       fetchMovies();
 
       return function () {

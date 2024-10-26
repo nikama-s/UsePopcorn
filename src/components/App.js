@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import WatchedMovieList from "./WatchedMovieList";
 import WatchedSummary from "./WatchedSummary";
 import MovieDetails from "./MovieDetails";
@@ -8,7 +8,7 @@ import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import NavBar from "./NavBar";
 import Main from "./Main";
-import { useMovies } from "./usemovies";
+import { useMovies } from "./useMovies";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const average = (arr) =>
