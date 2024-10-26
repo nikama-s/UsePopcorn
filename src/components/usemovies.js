@@ -9,7 +9,6 @@ export function useMovies(query) {
   useEffect(
     function () {
       const controller = new AbortController();
-
       async function fetchMovies() {
         try {
           setIsLoading(true);
@@ -27,9 +26,7 @@ export function useMovies(query) {
           setError("");
         } catch (err) {
           if (err.name !== "AbortError") {
-            err.message === "Failed to fetch"
-              ? setError("Something went wrong")
-              : setError(err.message);
+            setError(err.message);
           }
         } finally {
           setIsLoading(false);
