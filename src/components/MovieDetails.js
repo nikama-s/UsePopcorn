@@ -4,6 +4,7 @@ import { KEY } from "./App";
 import ErrorMessage from "./ErrorMessage";
 import Loader from "./Loader";
 import { useKey } from "./useKey";
+import Statistics from "./Statistics";
 
 export default function MovieDetails({
   selectedId,
@@ -102,10 +103,7 @@ export default function MovieDetails({
                 {runtime}
               </p>
               <p>{genre}</p>
-              <p>
-                <span>⭐</span>
-                {imdbRating} IMDb rating
-              </p>
+              <Statistics emoji="⭐">{imdbRating} IMDb rating</Statistics>
             </div>
           </header>
           <section>
