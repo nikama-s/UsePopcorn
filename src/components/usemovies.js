@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { KEY } from "./App";
 
-export function useMovies(query) {
+export function useMovies(query, page = 1) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -13,10 +13,11 @@ export function useMovies(query) {
         try {
           setIsLoading(true);
           setError("");
+          setMovies([]);
           const res = await fetch(
             `https://www.omdbapi.com/?s=${
               query ? query.trim() : "game"
-            }&apikey=${KEY}`,
+            }&apikey=${KEY}&page=${page}`,
             { signal: controller.signal }
           );
 
@@ -38,7 +39,7 @@ export function useMovies(query) {
         controller.abort();
       };
     },
-    [query]
+    [query, page]
   );
   return { movies, isLoading, error };
 }
