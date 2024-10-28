@@ -10,7 +10,7 @@ import NavBar from "./NavBar";
 import Main from "./Main";
 import { useMovies } from "./useMovies";
 import { useLocalStorage } from "./useLocalStorage";
-import { Pages } from "./Pages";
+import  Pages  from "./Pages";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);

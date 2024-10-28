@@ -1,4 +1,4 @@
-export function Pages({ page, setPage, moviesLength }) {
+export default function Pages({ page, setPage, moviesLength }) {
   const isShownLeft = page > 1;
   const isShownRight = moviesLength === 10;
   const isShownPage = isShownLeft || isShownRight;
