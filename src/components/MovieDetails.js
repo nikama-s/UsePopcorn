@@ -32,6 +32,8 @@ export default function MovieDetails({
     Actors: actors,
     Director: director,
     Genre: genre,
+    Type: type,
+    totalSeasons,
   } = movie;
 
   function handleAdd() {
@@ -59,6 +61,7 @@ export default function MovieDetails({
           );
           const data = await res.json();
           setMovie(data);
+          console.log(data);
         } catch (err) {
           setError("Something went wrong");
         } finally {
@@ -103,6 +106,7 @@ export default function MovieDetails({
                 {runtime}
               </p>
               <p>{genre}</p>
+              <p>{type === "series" && `Series - ${totalSeasons} seasons`}</p>
               <Statistics emoji="⭐">{imdbRating} IMDb rating</Statistics>
             </div>
           </header>
