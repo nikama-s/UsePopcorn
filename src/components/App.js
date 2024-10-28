@@ -61,7 +61,7 @@ export default function App() {
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
           )}
           {!isLoading && (
-            <Pages page={page} setPage={setPage} movies={movies} />
+            <Pages page={page} setPage={setPage} moviesLength={movies.length} />
           )}
         </ListBox>
 
