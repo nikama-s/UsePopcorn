@@ -10,7 +10,7 @@ import NavBar from "./NavBar";
 import Main from "./Main";
 import { useMovies } from "./useMovies";
 import { useLocalStorage } from "./useLocalStorage";
-import { Pages } from "./Pages";
+import  Pages  from "./Pages";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -42,24 +42,6 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
-  function renderPagination() {
-    return (
-      <div className="buttons">
-        {page > 1 ? (
-          <button onClick={() => setPage(page - 1)}>&larr;</button>
-        ) : (
-          <button className="placeholder"></button>
-        )}
-        {(page > 1 || movies.length > 0) && <p>Page {page}</p>}
-        {movies.length === 10 ? (
-          <button onClick={() => setPage(page + 1)}>&rarr;</button>
-        ) : (
-          <button className="placeholder"></button>
-        )}
-      </div>
-    );
-  }
-
   return (
     <>
       <NavBar
@@ -79,7 +61,7 @@ export default function App() {
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
           )}
           {!isLoading && (
-            <Pages page={page} setPage={setPage} movies={movies} />
+            <Pages page={page} setPage={setPage} moviesLength={movies.length} />
           )}
         </ListBox>
 

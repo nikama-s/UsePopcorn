@@ -1,15 +1,19 @@
-export function Pages({ page, setPage, movies }) {
+export default function Pages({ page, setPage, moviesLength }) {
+  const isShownLeft = page > 1;
+  const isShownRight = moviesLength === 10;
+  const isShownPage = isShownLeft || isShownRight;
+
   return (
     <div className="buttons">
-      {page > 1 ? (
+      {isShownLeft ? (
         <button onClick={() => setPage(page - 1)}>&larr;</button>
       ) : (
         <button className="placeholder"></button>
       )}
 
-      {(page > 1 || movies.length > 0) && <p>Page {page}</p>}
+      {isShownPage && <p>Page {page}</p>}
 
-      {movies.length === 10 ? (
+      {isShownRight ? (
         <button onClick={() => setPage(page + 1)}>&rarr;</button>
       ) : (
         <button className="placeholder"></button>
