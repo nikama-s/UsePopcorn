@@ -10,6 +10,7 @@ import NavBar from "./NavBar";
 import Main from "./Main";
 import { useMovies } from "./useMovies";
 import { useLocalStorage } from "./useLocalStorage";
+import { Pages } from "./Pages";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -41,6 +42,24 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
+  function renderPagination() {
+    return (
+      <div className="buttons">
+        {page > 1 ? (
+          <button onClick={() => setPage(page - 1)}>&larr;</button>
+        ) : (
+          <button className="placeholder"></button>
+        )}
+        {(page > 1 || movies.length > 0) && <p>Page {page}</p>}
+        {movies.length === 10 ? (
+          <button onClick={() => setPage(page + 1)}>&rarr;</button>
+        ) : (
+          <button className="placeholder"></button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
       <NavBar
@@ -52,27 +71,15 @@ export default function App() {
 
       <Main>
         <ListBox>
-          {isLoading && <Loader />}
-          {!isLoading && !error && (
-            <>
-              <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
-            </>
+          {isLoading ? (
+            <Loader />
+          ) : error ? (
+            <ErrorMessage message={error} />
+          ) : (
+            <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
           )}
-          {error && <ErrorMessage message={error} />}
           {!isLoading && (
-            <div className="buttons">
-              {page !== 1 ? (
-                <button onClick={() => setPage(page - 1)}>&larr;</button>
-              ) : (
-                <button className="placeholder"></button>
-              )}
-              {(page !== 1 || movies.length !== 0) && <p>page {page}</p>}
-              {movies.length === 10 ? (
-                <button onClick={() => setPage(page + 1)}>&rarr;</button>
-              ) : (
-                <button className="placeholder"></button>
-              )}
-            </div>
+            <Pages page={page} setPage={setPage} movies={movies} />
           )}
         </ListBox>
 
