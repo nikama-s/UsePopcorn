@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import StarRating from "./StarRating";
-import { KEY } from "./App";
-import ErrorMessage from "./ErrorMessage";
-import Loader from "./Loader";
-import { useKey } from "./useKey";
-import Statistics from "./Statistics";
+import { KEY } from "../../../App";
+import {
+  ErrorMessage,
+  Loader,
+  useKey,
+  Statistics,
+  UserRating,
+} from "../../../components";
 
 export default function MovieDetails({
   selectedId,
@@ -17,6 +19,7 @@ export default function MovieDetails({
   const [error, setError] = useState("");
   const [userRating, setUserRating] = useState(null);
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
   )?.userRating;
@@ -44,6 +47,8 @@ export default function MovieDetails({
       poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
+      type,
+      totalSeasons,
       userRating,
     };
 
@@ -111,25 +116,13 @@ export default function MovieDetails({
             </div>
           </header>
           <section>
-            <div className="rating">
-              {!isWatched ? (
-                <>
-                  <StarRating
-                    maxRating={10}
-                    size={26}
-                    borderColor="black"
-                    onSetRating={setUserRating}
-                  />
-                  {userRating && (
-                    <button className="btn-add" onClick={handleAdd}>
-                      Add to List
-                    </button>
-                  )}
-                </>
-              ) : (
-                <p>You rated this movie {watchedUserRating} ⭐</p>
-              )}
-            </div>
+            <UserRating
+              isWatched={isWatched}
+              setUserRating={setUserRating}
+              userRating={userRating}
+              handleAdd={handleAdd}
+              watchedUserRating={watchedUserRating}
+            />
             <p>
               <em>{plot}</em>
             </p>

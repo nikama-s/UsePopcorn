@@ -371,6 +371,40 @@ body {
 .list-watched::-webkit-scrollbar {
   display: none;
 }
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 50%;
+  }
+  .search {
+    width: 35rem;
+  }
+  .btn-delete {
+    right: 2.5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 45%;
+  }
+  .search {
+    width: 25rem;
+  }
+  .btn-delete {
+    right: 1.5rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 43%;
+  }
+  .search {
+    width: 25rem;
+  }
+  .btn-delete {
+    right: 1rem;
+  }
+}
 /*
 SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128

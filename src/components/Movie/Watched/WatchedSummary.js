@@ -1,5 +1,5 @@
-import { average } from "./App";
-import Statistics from "./Statistics";
+import { average } from "../../../App";
+import Statistics from "../../Reusable/Statistics";
 
 export default function WatchedSummary({ watched }) {
   const avgImdbRating = average(

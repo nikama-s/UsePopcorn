@@ -1,16 +1,16 @@
-import { useState } from "react";
-import WatchedMovieList from "./WatchedMovieList";
-import WatchedSummary from "./WatchedSummary";
-import MovieDetails from "./MovieDetails";
-import MovieList from "./MovieList";
-import ListBox from "./ListBox";
-import Loader from "./Loader";
-import ErrorMessage from "./ErrorMessage";
-import NavBar from "./NavBar";
-import Main from "./Main";
-import { useMovies } from "./useMovies";
-import { useLocalStorage } from "./useLocalStorage";
-import  Pages  from "./Pages";
+import { useEffect, useState } from "react";
+import {
+  WatchedMovieList,
+  WatchedSummary,
+  MovieDetails,
+  MovieList,
+  ListBox,
+  Loader,
+  ErrorMessage,
+  NavBar,
+  useLocalStorage,
+  Pages,
+} from "./components";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -21,8 +21,9 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [page, setPage] = useState(1);
-
-  const { movies, isLoading, error } = useMovies(query, page);
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [watched, setWatched] = useLocalStorage([], "watched");
 
@@ -42,6 +43,42 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
+  useEffect(
+    function () {
+      const controller = new AbortController();
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
+          setMovies([]);
+          const res = await fetch(
+            `https://www.omdbapi.com/?s=${
+              query ? query.trim() : "game"
+            }&apikey=${KEY}&page=${page}`,
+            { signal: controller.signal }
+          );
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+          setMovies(data.Search);
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      fetchMovies();
+
+      return function () {
+        controller.abort();
+      };
+    },
+    [query, page]
+  );
+
   return (
     <>
       <NavBar
@@ -51,7 +88,7 @@ export default function App() {
         setPage={setPage}
       />
 
-      <Main>
+      <main className="main">
         <ListBox>
           {isLoading ? (
             <Loader />
@@ -84,7 +121,7 @@ export default function App() {
             </>
           )}
         </ListBox>
-      </Main>
+      </main>
     </>
   );
 }

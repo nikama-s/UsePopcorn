@@ -1,4 +1,4 @@
-import Statistics from "./Statistics";
+import Statistics from "../../Reusable/Statistics";
 
 export default function Movie({ movie, onSelectMovie }) {
   return (

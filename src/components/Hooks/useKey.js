@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-export function useKey(key, action, secAction) {
+export default function useKey(key, action, secAction) {
   useEffect(
     function () {
       function callback(e) {

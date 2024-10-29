@@ -1,6 +1,4 @@
-import Search from "./Search";
-import NumResults from "./NumResults";
-import Logo from "./Logo";
+import { Search, Logo, NumResults } from "./index.js";
 
 export default function NavBar({ setQuery, query, movies, setPage }) {
   return (
