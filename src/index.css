@@ -396,13 +396,22 @@ body {
 }
 @media screen and (max-width: 500px) {
   html {
-    font-size: 43%;
+    font-size: 40%;
   }
   .search {
-    width: 25rem;
+    width: 20rem;
   }
   .btn-delete {
-    right: 1rem;
+    right: 0.5rem;
+  }
+  .summary {
+    padding: 2.2rem 3.2rem 1.8rem 1rem;
+  }
+  .summary div {
+    gap: 1rem;
+  }
+  .list p {
+    gap: 0.1rem;
   }
 }
 /*
