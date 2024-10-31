@@ -8,6 +8,7 @@
   --color-background-900: #212529;
   --color-red: #fa5252;
   --color-red-dark: #e03131;
+  --star-size: 26px;
 }
 
 * {
@@ -199,6 +200,7 @@ body {
 
 .list div {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 2.4rem;
 }
@@ -246,9 +248,10 @@ body {
 
 .summary div {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 2.4rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
@@ -382,6 +385,9 @@ body {
   .btn-delete {
     right: 2.5rem;
   }
+  :root {
+    --star-size: 20px;
+  }
 }
 @media screen and (max-width: 600px) {
   html {
@@ -393,25 +399,36 @@ body {
   .btn-delete {
     right: 1.5rem;
   }
+  :root {
+    --star-size: 16px;
+  }
 }
 @media screen and (max-width: 500px) {
   html {
     font-size: 40%;
   }
   .search {
-    width: 20rem;
+    width: 16rem;
   }
   .btn-delete {
-    right: 0.5rem;
+    right: 0.3rem;
   }
   .summary {
-    padding: 2.2rem 3.2rem 1.8rem 1rem;
+    padding: 2.2rem 3.2rem 1.8rem 0.2rem;
   }
   .summary div {
     gap: 1rem;
   }
   .list p {
     gap: 0.1rem;
+  }
+  .rating {
+    background-color: var(--color-background-100);
+    border-radius: 0.9rem;
+    padding: 0.2rem 0.4rem;
+  }
+  :root {
+    --star-size: 13px;
   }
 }
 /*

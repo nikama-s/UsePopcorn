@@ -1,4 +1,10 @@
 import StarRating from "./StarRating";
+import { useState, useEffect } from "react";
+
+function getStarSize() {
+  const rootStyle = getComputedStyle(document.documentElement);
+  return parseInt(rootStyle.getPropertyValue("--star-size"));
+}
 
 export default function UserRating({
   isWatched,
@@ -7,13 +13,23 @@ export default function UserRating({
   handleAdd,
   watchedUserRating,
 }) {
+  const [starSize, setStarSize] = useState(getStarSize());
+
+  useEffect(() => {
+    function handleResize() {
+      setStarSize(getStarSize());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="rating">
       {!isWatched ? (
         <>
           <StarRating
             maxRating={10}
-            size={26}
+            size={starSize}
             borderColor="black"
             onSetRating={setUserRating}
           />
