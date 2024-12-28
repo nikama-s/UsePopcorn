@@ -1,1 +1,1 @@
-UsePopcorn(https://nikama-s.github.io/UsePopcorn/)
+[Deploy](https://nikama-s.github.io/usePopcorn/)
