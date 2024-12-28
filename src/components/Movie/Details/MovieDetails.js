@@ -66,7 +66,6 @@ export default function MovieDetails({
           );
           const data = await res.json();
           setMovie(data);
-          console.log(data);
         } catch (err) {
           setError("Something went wrong");
         } finally {
